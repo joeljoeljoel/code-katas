@@ -1,35 +1,27 @@
 <?php
 class PrimeFactors {
 
-    public static $factors = [];
+    public $factors = [];
 
-    public function __construct($number) {
-        $this->factors = [$number];
+    public function factor($number) {
+        return $this->breakdown($number);
     }
 
-    public function factor() {
-        return $this->breakdown($this->factors);
-    }
-
-    private function breakdown(array $numbers) {
-        foreach ($numbers as $number) {
-            if ($this->isPrime($number)) {
-                continue;
-            }
-
-            $try = 2;
-
-            while ($try < $number) {
-                if ($number % $try === 0) {
-                    $this->factors = array_merge([$try], $this->breakdown([$number / $try]));
-                }
-                $try++;
-            }
-
+    private function breakdown($number) {
+        if ($this->isPrime($number)) {
+            $this->factors[] = $number;
+            return $this->factors;
         }
 
+        $try = 2;
 
-        return $this->factors;
+        while ($try < $number) {
+            if ($number % $try === 0) {
+                $this->factors[] = $try;
+                return $this->breakdown($number / $try);
+            }
+            $try++;
+        }
     }
 
     private function isPrime($factor = null) {
@@ -47,6 +39,6 @@ class PrimeFactors {
 
 }
 
-$factor = new PrimeFactors(20);
-$factors = $factor->factor();
-var_dump($factors);
+$factor = new PrimeFactors();
+$factors = $factor->factor(48733432);
+echo '[' . implode($factors, ', ') . ']' . PHP_EOL;
