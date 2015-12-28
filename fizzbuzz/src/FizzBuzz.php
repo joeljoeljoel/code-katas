@@ -1,6 +1,12 @@
 <?php
 
 class FizzBuzz {
+
+    /**
+     * Translates a number for the fizz buzz exercise
+     * @param int $number
+     * @return mixed
+     */
     public function execute($number) {
         $translation = '';
 
@@ -15,6 +21,11 @@ class FizzBuzz {
         return empty($translation) ?  $number : $translation;
     }
 
+    /**
+     * Translates all numbers from one to $number
+     * @param int $number
+     * @return array
+     */
     public function executeUpTo($number) {
         $translations = [];
 
